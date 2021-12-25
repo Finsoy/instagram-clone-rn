@@ -23,6 +23,9 @@ const Header = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
+          <View style={styles.unreadBadge}>
+            <Text style={styles.unreadBadgeText}>11</Text>
+          </View>
           <Image source={{uri: 'https://cdn-icons-png.flaticon.com/512/1077/1077047.png'}} style={styles.icon}/>
         </TouchableOpacity>
       </View>
@@ -33,7 +36,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -59,7 +62,26 @@ const styles = StyleSheet.create({
     height: 25,
     marginLeft: 15,
     resizeMode: 'contain',
-  }
+  },
+
+  unreadBadge: {
+    backgroundColor: '#FF3250',
+    position: 'absolute',
+    left: 20,
+    bottom: 18,
+    width: 25,
+    height: 18,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 100,
+  },
+
+  unreadBadgeText: {
+    color: 'white',
+    fontSize: 10,
+    fontWeight: '600',
+  },
 });
 
 export default Header;
