@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     height: 25,
     marginLeft: 15,
     resizeMode: 'contain',
+    tintColor: 'white',
   },
 
   unreadBadge: {

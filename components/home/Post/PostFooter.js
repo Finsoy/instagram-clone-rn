@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   footerIcon: {
     width: 25,
     height: 25,
+    tintColor: 'white',
   },
 });
 
