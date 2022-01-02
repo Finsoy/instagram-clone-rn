@@ -1,10 +1,20 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {auth} from "../../firebase";
 
-const Header = () => {
+const handleSignOut = async () => {
+  try {
+    await auth.signOut();
+    console.log('Signed out successfully');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const Header = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSignOut}>
         <Image
           style={styles.logo}
           source={require('../../assets/header-logo.png')}
@@ -12,7 +22,7 @@ const Header = () => {
       </TouchableOpacity>
 
       <View style={styles.iconsContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push('NewPostScreen')}>
           <Image
             source={{uri: 'https://cdn-icons.flaticon.com/png/512/3161/premium/3161837.png?token=exp=1640444738~hmac=f4ba5536e9adaf3718cf01eb9e6c6ae0'}}
             style={styles.icon}/>

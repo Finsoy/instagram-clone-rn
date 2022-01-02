@@ -49,14 +49,13 @@ const styles = StyleSheet.create({
     height: 30,
     margin: 10,
     zIndex: 10,
-    tintColor: activeTab === iconName ?'' : 'white',
+    tintColor: activeTab !== iconName && iconName !== "Profile" ? 'white' : '',
   }),
 
   profilePicture: (activeTab = '') => ({
     borderRadius: 50,
     borderWidth: activeTab === 'Profile' ? 2 : 0,
     borderColor: '#fff',
-    tintColor: "none",
   }),
 });
 
