@@ -11,7 +11,7 @@ const Stories = () => {
             <View style={styles.story}>
               <Image source={{uri: story.image}} style={styles.storyImage}/>
               <Text style={styles.storyText}>{
-                story.user.length > 11 ? story.user.slice(0, 10) + '...'
+                story.user.length > 11 ? story.user.slice(0, 6) + '...'
                   : story.user
               }</Text>
             </View>

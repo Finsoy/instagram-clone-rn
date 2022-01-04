@@ -9,7 +9,7 @@ import validator from 'email-validator';
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email().required('Email is required'),
   username: Yup.string().required().min(2, 'Username must be at least 2 characters'),
-  password: Yup.string().required().min(6, 'Password must be at least 8 characters long'),
+  password: Yup.string().required().min(6, 'Password must be at least 6 characters long'),
 })
 
 const SignupForm = ({navigation}) => {
@@ -25,7 +25,9 @@ const SignupForm = ({navigation}) => {
       const authUser = await auth.createUserWithEmailAndPassword(email, password)
       console.log('Sign UP Successful', email, password)
 
-      await db.collection('users').add({
+      await db.collection('users')
+        .doc(authUser.user.email)
+        .set({
         owner_uid: authUser.user.uid,
         email: authUser.user.email,
         username: username,

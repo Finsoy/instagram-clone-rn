@@ -7,7 +7,7 @@ const PostHeader = ({post}) => {
     <View style={styles.container}>
 
       <View style={styles.headerAvatar}>
-        <Image source={{uri: post.profile_picture}} style={styles.storyImage}/>
+        <Image source={{uri: post.profilePicture}} style={styles.storyImage}/>
         <Text style={styles.storyText}>{post.user}</Text>
       </View>
 
