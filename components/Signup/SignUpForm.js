@@ -23,7 +23,6 @@ const SignupForm = ({navigation}) => {
   const onSignup = async (email, password, username) => {
     try {
       const authUser = await auth.createUserWithEmailAndPassword(email, password)
-      console.log('Sign UP Successful', email, password)
 
       await db.collection('users')
         .doc(authUser.user.email)
@@ -36,7 +35,6 @@ const SignupForm = ({navigation}) => {
 
     } catch (error) {
       Alert.alert(error.message);
-      // console.log(error.message)
     }
   }
 
@@ -48,9 +46,7 @@ const SignupForm = ({navigation}) => {
         password: '',
       }}
       onSubmit={(values) => {
-        console.log(values)
         return onSignup(values.email, values.password, values.username)
-        // navigation.push('HomeScreen')
       }}
       validationSchema={SignupSchema}
       validateOnMount={true}
@@ -58,7 +54,6 @@ const SignupForm = ({navigation}) => {
 
       {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
         <View style={styles.container}>
-          <Text style={styles.text}>Login Form</Text>
           <TextInput style={[styles.input,
             {borderColor: values.email.length < 1 || validator.validate(values.email) ? '#ccc' : 'red'}]}
                      placeholder="Enter your email"

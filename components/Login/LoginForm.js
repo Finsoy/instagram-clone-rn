@@ -1,29 +1,35 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableOpacity, Alert} from 'react-native';
-import firebase, {auth, db} from "../../firebase";
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Pressable,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import firebase, { auth, db } from '../../firebase';
 
 import * as Yup from 'yup';
-import {Formik} from 'formik';
+import { Formik } from 'formik';
 import validator from 'email-validator';
-
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email().required('Email is required'),
-  password: Yup.string().required().min(6, 'Password must be at least 8 characters long'),
-})
+  password: Yup.string()
+    .required()
+    .min(6, 'Password must be at least 6 characters long'),
+});
 
-const LoginForm = ({navigation}) => {
-
-  const onLogin = async(email, password) => {
+const LoginForm = ({ navigation }) => {
+  const onLogin = async (email, password) => {
     try {
-      await auth.signInWithEmailAndPassword(email, password)
-      console.log('Login Successful', email, password)
+      await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
       Alert.alert(error.message);
-      // console.log(error.message)
     }
-  }
-
+  };
 
   return (
     <Formik
@@ -32,74 +38,90 @@ const LoginForm = ({navigation}) => {
         password: '',
       }}
       onSubmit={(values) => {
-        console.log(values)
-        return onLogin(values.email, values.password)
-        // navigation.push('HomeScreen')
+        return onLogin(values.email, values.password);
       }}
       validationSchema={LoginSchema}
       validateOnMount={true}
     >
-
-      {({handleBlur, handleChange, handleSubmit, values, errors, isValid}) => (
+      {({
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        values,
+        errors,
+        isValid,
+      }) => (
         <View style={styles.container}>
-          <Text style={styles.text}>Login Form</Text>
-          <TextInput style={[styles.input,
-            {borderColor: values.email.length < 1 || validator.validate(values.email) ? '#ccc' : 'red'}]}
-                     placeholder="Phone number, username or email"
-                     placeholderTextColor='gray'
-                     keyboardType={'email-address'}
-                     textContentType={'emailAddress'}
-                     autoFocus={true}
-                     onChangeText={handleChange('email')}
-                     onBlur={handleBlur('email')}
-                     value={values.email}
+          <TextInput
+            style={[
+              styles.input,
+              {
+                borderColor:
+                  values.email.length < 1 || validator.validate(values.email)
+                    ? '#ccc'
+                    : 'red',
+              },
+            ]}
+            placeholder="Enter your email"
+            placeholderTextColor="gray"
+            keyboardType={'email-address'}
+            textContentType={'emailAddress'}
+            autoFocus={true}
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            value={values.email}
           />
 
-          {values.email.length < 1 || errors.email && (
-            <Text style={styles.error}>
-              {errors.email}
-            </Text>
-          )}
+          {values.email.length < 1 ||
+            (errors.email && <Text style={styles.error}>{errors.email}</Text>)}
 
-          <TextInput style={[styles.input,
-            {borderColor: values.password.length < 1 || values.password.length >= 6 ? '#ccc' : 'red'}]}
-                     placeholder="Password"
-                     placeholderTextColor='gray'
-                     autoCorrect={false}
-                     secureTextEntry={true}
-                     textContentType={'password'}
-                     onChangeText={handleChange('password')}
-                     onBlur={handleBlur('password')}
-                     value={values.password}
+          <TextInput
+            style={[
+              styles.input,
+              {
+                borderColor:
+                  values.password.length < 1 || values.password.length >= 6
+                    ? '#ccc'
+                    : 'red',
+              },
+            ]}
+            placeholder="Password"
+            placeholderTextColor="gray"
+            autoCorrect={false}
+            secureTextEntry={true}
+            textContentType={'password'}
+            onChangeText={handleChange('password')}
+            onBlur={handleBlur('password')}
+            value={values.password}
           />
 
-          {values.password.length < 1 || errors.password && (
-            <Text style={styles.error}>
-              {errors.password}
-            </Text>
-          )}
+          {values.password.length < 1 ||
+            (errors.password && (
+              <Text style={styles.error}>{errors.password}</Text>
+            ))}
 
-          <View style={styles.forgotPassword}>
-            <Text style={{color: '#6bb0f5', fontSize: 15}}>Forgot password?</Text>
-          </View>
-
-          <Pressable titleSize={20}
-                     style={styles.button(isValid)}
-                     onPress={handleSubmit}
-                     disabled={!isValid}>
+          <Pressable
+            titleSize={20}
+            style={styles.button(isValid)}
+            onPress={handleSubmit}
+            disabled={!isValid}
+          >
             <Text style={styles.buttonText}>Log in</Text>
           </Pressable>
 
           <View style={styles.signUpContainer}>
-            <Text style={{color: 'white', fontSize: 16}}>Don't have an account?</Text>
-            <TouchableOpacity style={styles.signUpButton}
-                              onPress={() => navigation.push('SignUpScreen')}>
+            <Text style={{ color: 'white', fontSize: 16 }}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={() => navigation.push('SignUpScreen')}
+            >
               <Text style={styles.signUpButtonText}> Sign up</Text>
             </TouchableOpacity>
           </View>
-
-        </View>)
-      }
+        </View>
+      )}
     </Formik>
   );
 };

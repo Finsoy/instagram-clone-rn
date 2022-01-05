@@ -29,14 +29,6 @@ const BottomTabs = ({icons}) => {
 };
 
 const styles = StyleSheet.create({
-  // wrapper: {
-  //   position: 'absolute',
-  //   width: '100%',
-  //   bottom: '0%',
-  //   zIndex: 999,
-  //   backgroundColor: '#000',
-  // },
-
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',

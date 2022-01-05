@@ -27,9 +27,7 @@ const Post = ({post}) => {
           : firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
       })
       .then(() => {
-        console.log('Like status updated');
       }).catch(err => {
-      console.log('Error updating document' ,err);
     });
   }
 

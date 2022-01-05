@@ -5,9 +5,7 @@ import {auth} from "../../firebase";
 const handleSignOut = async () => {
   try {
     await auth.signOut();
-    console.log('Signed out successfully');
   } catch (error) {
-    console.log(error);
   }
 };
 
